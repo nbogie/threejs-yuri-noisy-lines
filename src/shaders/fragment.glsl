@@ -1,5 +1,6 @@
 uniform float time;
 uniform float rotation;
+uniform float lineWidth;
 uniform float progress;
 uniform sampler2D texture1;
 uniform sampler2D texture2;
@@ -293,7 +294,7 @@ float aastep(float threshold,float value){
 float line(vec2 uv){
 	
 	float u=0.;
-	u=aastep(.1,uv.x);
+	u=aastep(lineWidth,uv.x);
 	return u;
 	
 }

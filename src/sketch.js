@@ -28,13 +28,15 @@ const sketch = ({ context }) => {
   });
   const options = {
     time: 0,
-    rotation: 0
+    rotation: 0,
+    lineWidth: 0.1
   };
 
 
   const gui = new dat.GUI();
   gui.add(options, "time", 0, 100, 0.1);
   gui.add(options, "rotation", 0, 6, 0.1);
+  gui.add(options, "lineWidth", 0, 1, 0.01);
 
   function addObjects() {
     const material = new THREE.ShaderMaterial({
@@ -46,6 +48,7 @@ const sketch = ({ context }) => {
         time: { type: "f", value: 0 },
         resolution: { type: "v4", value: new THREE.Vector4() },
         rotation: { type: "f", value: 0 },
+        lineWidth: { type: "f", value: 0.1 },
         uvRate1: {
           value: new THREE.Vector2(1, 1)
         }
@@ -115,6 +118,7 @@ const sketch = ({ context }) => {
       controls.update();
       material.uniforms.time.value = time;
       material.uniforms.rotation.value = options.rotation;
+      material.uniforms.lineWidth.value = options.lineWidth;
       renderer.render(scene, camera);
     },
     // Dispose of events & renderer for cleaner hot-reloading
