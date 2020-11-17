@@ -52,8 +52,8 @@ const sketch = ({ context }) => {
     });
     material.uniforms.resolution.value.z = 1;
     material.uniforms.resolution.value.w = 1;
-    // material.uniforms.resolution.value.x = width;
-    // material.uniforms.resolution.value.y = height;
+    material.uniforms.resolution.value.x = window.innerWidth;
+    material.uniforms.resolution.value.y = window.innerHeight;
 
     const geometry = new THREE.PlaneGeometry(2.6 * aspect, 2.6, 1, 1);
     const plane = new THREE.Mesh(geometry, material);
@@ -104,7 +104,7 @@ const sketch = ({ context }) => {
     resize({ pixelRatio, viewportWidth, viewportHeight }) {
       renderer.setPixelRatio(pixelRatio);
       renderer.setSize(viewportWidth, viewportHeight, false);
-      camera.aspect = viewportWidth / viewportHeight;
+      // camera.aspect = viewportWidth / viewportHeight;
       camera.updateProjectionMatrix();
     },
     // Update & render your scene here
