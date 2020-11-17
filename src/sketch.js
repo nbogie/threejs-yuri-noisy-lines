@@ -1,3 +1,5 @@
+//notes: when we use the orthographic camera we know the exact dimensions we're looking at
+
 // Ensure ThreeJS is in global scope for the 'examples/'
 global.THREE = require("three");
 
@@ -53,18 +55,36 @@ const sketch = ({ context }) => {
     // material.uniforms.resolution.value.x = width;
     // material.uniforms.resolution.value.y = height;
 
-    const geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
+    const geometry = new THREE.PlaneGeometry(2.6 * aspect, 2.6, 1, 1);
     const plane = new THREE.Mesh(geometry, material);
     scene.add(plane);
+
+
+
+    const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 1);
+    const plane2 = new THREE.Mesh(boxGeometry, material);
+    scene.add(plane2);
+
     return { plane, material };
   }
   // WebGL background color
   renderer.setClearColor("#000", 1);
 
   // Setup a camera
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.01, 100);
+  const cameraP = new THREE.PerspectiveCamera(50, 1, 0.01, 100);
+  cameraP.position.set(0, 0, 2);
+  cameraP.lookAt(new THREE.Vector3());
+
+  let frustumSize = 3;
+  let aspect = window.innerWidth / window.innerHeight;
+  const camera = new THREE.OrthographicCamera(
+    frustumSize * aspect / -2,
+    frustumSize * aspect / 2,
+    frustumSize * aspect / 2,
+    frustumSize * aspect / -2,
+    -1000
+  );
   camera.position.set(0, 0, 2);
-  camera.lookAt(new THREE.Vector3());
 
   // Setup camera controller
   const controls = new THREE.OrbitControls(camera, context.canvas);
