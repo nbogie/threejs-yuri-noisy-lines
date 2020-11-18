@@ -1,8 +1,12 @@
-//following Yuri Artyukh's "Noisy lines" live stream episode:
+//Following Yuri Artyukh's "Noisy lines" live stream episode:
 //https://www.youtube.com/watch?v=2a2P8-PyNGA&list=PLswdBLT9llbheHhZdGNw9RehJP1kvpMHY&index=21
+//Mistakes are my own.
 
-//notes: when we use the orthographic camera we know the exact dimensions we're looking at
-//notes: a cube and a plane have the same material shader.
+//Notes: when we use the orthographic camera we know the exact dimensions we're looking at
+//Notes: a background plane and nearer text have the same material shader,
+// which uses vPosition as noise input.  
+// The text geometry is adjusted so that its front face shares uv.z (i think) with that of the plane,
+// so that the noise is identical on both surfaces.
 
 // Ensure ThreeJS is in global scope for the 'examples/'
 global.THREE = require("three");
@@ -164,9 +168,10 @@ const sketch = ({ context }) => {
 
       // box.rotation.x = mouseTarget.y;
       // box.rotation.y = mouseTarget.x;
-      textMesh.rotation.x = mouseTarget.y;
-      textMesh.rotation.y = mouseTarget.x;
-
+      if (textMesh) {
+        textMesh.rotation.x = mouseTarget.y;
+        textMesh.rotation.y = mouseTarget.x;
+      }
       mouseTarget.lerp(mouse, 0.07)
 
       controls.update();
