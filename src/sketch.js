@@ -1,4 +1,8 @@
+//following Yuri Artyukh's "Noisy lines" live stream episode:
+//https://www.youtube.com/watch?v=2a2P8-PyNGA&list=PLswdBLT9llbheHhZdGNw9RehJP1kvpMHY&index=21
+
 //notes: when we use the orthographic camera we know the exact dimensions we're looking at
+//notes: a cube and a plane have the same material shader.
 
 // Ensure ThreeJS is in global scope for the 'examples/'
 global.THREE = require("three");
@@ -11,7 +15,10 @@ import * as dat from 'dat.gui';
 import fragment from './shaders/fragment.glsl';
 import vertex from './shaders/vertex.glsl';
 
+
 const canvasSketch = require("canvas-sketch");
+
+
 
 const settings = {
   // Make the loop animated
@@ -22,6 +29,8 @@ const settings = {
 
 
 const sketch = ({ context }) => {
+
+
   // Create a renderer
   const renderer = new THREE.WebGLRenderer({
     canvas: context.canvas
@@ -32,7 +41,6 @@ const sketch = ({ context }) => {
     repeat: 8,
     lineWidth: 0.4
   };
-
 
   const mouse = new THREE.Vector2(0, 0);
   const mouseTarget = new THREE.Vector2(0, 0);
@@ -49,6 +57,26 @@ const sketch = ({ context }) => {
       mouse.y = e.pageY / window.innerHeight - 0.5;
     });
   }
+  let textMesh;
+
+  function addText(material) {
+    const loader = new THREE.FontLoader();
+    loader.load("https://threejs.org/examples/fonts/helvetiker_bold.typeface.json", function (font) {
+
+      const geometry = new THREE.TextGeometry('Create!', {
+        font: font,
+        size: 1,
+        height: 0.2,
+        curveSegments: 12,
+        bevelEnabled: false
+      });
+      geometry.translate(-2.3, -0.5, -0.2);
+      textMesh = new THREE.Mesh(geometry, material);
+      textMesh.position.z = 0.1;
+      scene.add(textMesh);
+    });
+  }
+
   function addObjects() {
     const material = new THREE.ShaderMaterial({
       extensions: {
@@ -78,17 +106,17 @@ const sketch = ({ context }) => {
     const plane = new THREE.Mesh(geometry, material);
     scene.add(plane);
 
-
-
-
-
     const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 0.1).translate(0, 0, -0.05);
     // About this translation: we move the box so that the z (of the uvs(?)) of the box front surface is 
     // the same as that of the plane, for noise texture to match (driven by vPosition).
     //https://www.youtube.com/watch?v=2a2P8-PyNGA&list=PLswdBLT9llbheHhZdGNw9RehJP1kvpMHY&index=21&t=31m
     const box = new THREE.Mesh(boxGeometry, material);
     box.position.z = 0.15;// shift it back into position.
-    scene.add(box);
+    //scene.add(box);
+
+
+
+    addText(material);
 
     return { plane, box, material };
   }
@@ -119,7 +147,6 @@ const sketch = ({ context }) => {
 
 
   const { box, material } = addObjects();
-
   grabMouseEvents();
 
 
@@ -135,8 +162,10 @@ const sketch = ({ context }) => {
     // Update & render your scene here
     render({ time }) {
 
-      box.rotation.x = mouseTarget.y;
-      box.rotation.y = mouseTarget.x;
+      // box.rotation.x = mouseTarget.y;
+      // box.rotation.y = mouseTarget.x;
+      textMesh.rotation.x = mouseTarget.y;
+      textMesh.rotation.y = mouseTarget.x;
 
       mouseTarget.lerp(mouse, 0.07)
 
