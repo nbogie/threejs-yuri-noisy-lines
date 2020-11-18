@@ -14,3 +14,11 @@ The shader GLSL contains code by others:
 ## Screenshot
 
 ![screenshot](./screenshots/noisy-lines.png)
+
+## Run
+
+run with Matt DesLauriers' canvas-sketch: 
+
+```
+canvas-sketch src/sketch.js  
+```
