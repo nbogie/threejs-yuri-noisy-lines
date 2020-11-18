@@ -1,5 +1,8 @@
 //Following Yuri Artyukh's "Noisy lines" live stream episode:
 //https://www.youtube.com/watch?v=2a2P8-PyNGA&list=PLswdBLT9llbheHhZdGNw9RehJP1kvpMHY&index=21
+// Where he recreates the design from https://www.imdsg.ch/
+// https://www.imdsg.ch/?mode=Lines&text=YAY!&a=0.425&b=0.421&c=0.448&d=0.525
+//
 //Mistakes are my own.
 
 //Notes: when we use the orthographic camera we know the exact dimensions we're looking at
