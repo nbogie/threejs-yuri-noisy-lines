@@ -292,11 +292,8 @@ float aastep(float threshold,float value){
 }
 
 float line(vec2 uv){
-	
-	float u=0.;
-	u=aastep(lineWidth,uv.x);
+	float u=aastep(lineWidth,uv.x);
 	return u;
-	
 }
 
 vec2 rotate(vec2 v,float a){
