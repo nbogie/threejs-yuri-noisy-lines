@@ -1,5 +1,6 @@
 uniform float time;
 uniform float rotation;
+uniform float repeat;
 uniform float lineWidth;
 uniform float progress;
 uniform sampler2D texture1;
@@ -122,10 +123,10 @@ void main(){
 	
 	newUV=rotate(newUV,rotation);
 	
-	float noise=cnoise(vec3(newUV,0.));
+	float noise=cnoise(vec3(newUV,time/10.));
 	//repeat
 	newUV+=noise;
-	newUV=vec2(fract((newUV.x+newUV.y)*15.),newUV.y);
+	newUV=vec2(fract((newUV.x+newUV.y)*repeat),newUV.y);
 	
 	// gl_FragColor=vec4(vec3(cnoise(vec4(vUv.x,vUv.y,time,1.))),1.);
 	

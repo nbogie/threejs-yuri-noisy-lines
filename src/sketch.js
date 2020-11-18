@@ -29,6 +29,7 @@ const sketch = ({ context }) => {
   const options = {
     time: 0,
     rotation: 0,
+    repeat: 15,
     lineWidth: 0.1
   };
 
@@ -36,6 +37,7 @@ const sketch = ({ context }) => {
   const gui = new dat.GUI();
   gui.add(options, "time", 0, 100, 0.1);
   gui.add(options, "rotation", 0, 2 * Math.PI, 0.1);
+  gui.add(options, "repeat", 0, 100, 0.1);
   gui.add(options, "lineWidth", 0, 1, 0.01);
 
   function addObjects() {
@@ -49,6 +51,7 @@ const sketch = ({ context }) => {
         time: { type: "f", value: 0 },
         resolution: { type: "v4", value: new THREE.Vector4() },
         rotation: { type: "f", value: 0 },
+        repeat: { type: "f", value: 0 },
         lineWidth: { type: "f", value: 0.1 },
         uvRate1: {
           value: new THREE.Vector2(1, 1)
@@ -119,6 +122,7 @@ const sketch = ({ context }) => {
       controls.update();
       material.uniforms.time.value = time;
       material.uniforms.rotation.value = options.rotation;
+      material.uniforms.repeat.value = options.repeat;
       material.uniforms.lineWidth.value = options.lineWidth;
       renderer.render(scene, camera);
     },
