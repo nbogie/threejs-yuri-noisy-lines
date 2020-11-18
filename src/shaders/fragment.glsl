@@ -94,8 +94,10 @@ float aastep(float threshold,float value){
 	#endif
 }
 
-float line(vec2 uv){
-	float u=aastep(lineWidth,uv.x);
+float line(vec2 uv,float width){
+	float u=0.;
+	
+	u=aastep(width,uv.x)-aastep(1.-width,uv.x);
 	return u;
 }
 
@@ -118,5 +120,8 @@ void main(){
 	newUV=vec2(fract((newUV.x+newUV.y)*15.),newUV.y);
 	
 	// gl_FragColor=vec4(vec3(cnoise(vec4(vUv.x,vUv.y,time,1.))),1.);
-	gl_FragColor=vec4(vec3(line(newUV.xy)),1.);
+	
+	gl_FragColor=vec4(vec3(line(newUV.xy,lineWidth)),1.);
+	
+	//gl_FragColor=vec4(newUV,0.,1.);
 }
