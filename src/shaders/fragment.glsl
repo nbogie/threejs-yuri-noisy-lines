@@ -8,7 +8,7 @@ uniform sampler2D texture2;
 uniform vec4 resolution;
 
 varying vec2 vUv;
-varying vec4 vPosition;
+varying vec3 vPosition;
 
 //https://gist.github.com/patriciogonzalezvivo/670c22f3966e662d2f83
 //	Classic Perlin 3D Noise
@@ -132,5 +132,5 @@ void main(){
 	
 	gl_FragColor=vec4(vec3(line(newUV.xy,lineWidth)),1.);
 	
-	//gl_FragColor=vec4(newUV,0.,1.);
+	// gl_FragColor=vec4(vUv,0.,1.);
 }
