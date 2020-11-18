@@ -6,7 +6,6 @@ uniform float progress;
 uniform sampler2D texture1;
 uniform sampler2D texture2;
 uniform vec4 resolution;
-
 varying vec2 vUv;
 varying vec3 vPosition;
 
@@ -119,7 +118,8 @@ vec2 rotate(vec2 v, float a) {
 
 void main() {
 	
-	vec2 newUV = gl_FragCoord.xy / resolution.xy;
+	// vec2 newUV = gl_FragCoord.xy / resolution.xy;
+	vec2 newUV = vPosition.xy;
 	
 	newUV = rotate(newUV, rotation);
 	
@@ -132,5 +132,6 @@ void main() {
 	
 	gl_FragColor = vec4(vec3(line(newUV.xy, lineWidth)), 1.0);
 	
-	// gl_FragColor=vec4(vUv,0.,1.);
+	//gl_FragColor = vec4(vUv, 0.0, 1.0);
+	// gl_FragColor = vec4(vPosition, 1.0);
 }
