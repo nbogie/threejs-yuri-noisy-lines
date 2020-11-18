@@ -35,7 +35,7 @@ const sketch = ({ context }) => {
 
   const gui = new dat.GUI();
   gui.add(options, "time", 0, 100, 0.1);
-  gui.add(options, "rotation", 0, 6, 0.1);
+  gui.add(options, "rotation", 0, 2 * Math.PI, 0.1);
   gui.add(options, "lineWidth", 0, 1, 0.01);
 
   function addObjects() {
@@ -43,6 +43,7 @@ const sketch = ({ context }) => {
       extensions: {
         derivatives: "#extension GL_OES_standard_derivatives : enable"
       },
+
       side: THREE.DoubleSide,
       uniforms: {
         time: { type: "f", value: 0 },
