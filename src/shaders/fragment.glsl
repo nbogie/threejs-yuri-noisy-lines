@@ -84,7 +84,7 @@ float cnoise(vec3 P) {
 	float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
 	return 2.2 * n_xyz;
 }
-
+//https://github.com/glslify/glsl-aastep/blob/master/index.glsl
 float aastep(float threshold, float value) {
 	#ifdef GL_OES_standard_derivatives
 	float afwidth = length(vec2(dFdx(value), dFdy(value))) * 0.70710678118654757;
