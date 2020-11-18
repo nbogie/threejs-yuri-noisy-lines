@@ -79,7 +79,7 @@ const sketch = ({ context }) => {
       });
       geometry.translate(-2.3, -0.5, -0.2);
       textMesh = new THREE.Mesh(geometry, material);
-      textMesh.position.z = 0.1;
+      textMesh.position.z = 1;
       scene.add(textMesh);
     });
   }
