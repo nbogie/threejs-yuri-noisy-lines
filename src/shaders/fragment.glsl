@@ -123,7 +123,7 @@ void main() {
 	
 	newUV = rotate(newUV, rotation);
 	
-	float noise = cnoise(vec3(newUV, time / 10.0));
+	float noise = cnoise(vec3(newUV + vPosition.z , time / 10.0));
 	//repeat
 	newUV += noise;
 	newUV = vec2(fract((newUV.x + newUV.y) * repeat), newUV.y);
