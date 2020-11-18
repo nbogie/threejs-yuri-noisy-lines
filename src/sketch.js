@@ -43,7 +43,7 @@ const sketch = ({ context }) => {
   gui.add(options, "repeat", 0, 100, 0.1);
   gui.add(options, "lineWidth", 0, 1, 0.01);
 
-  function mouseEvents() {
+  function grabMouseEvents() {
     document.addEventListener("mousemove", e => {
       mouse.x = e.pageX / window.innerWidth - 0.5;
       mouse.y = e.pageY / window.innerHeight - 0.5;
@@ -120,7 +120,7 @@ const sketch = ({ context }) => {
 
   const { box, material } = addObjects();
 
-  mouseEvents();
+  grabMouseEvents();
 
 
   // draw each frame
