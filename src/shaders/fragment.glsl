@@ -97,7 +97,15 @@ float aastep(float threshold,float value){
 float line(vec2 uv,float width){
 	float u=0.;
 	
-	u=aastep(width,uv.x)-aastep(1.-width,uv.x);
+	//try to hide some noise within the line: https://www.youtube.com/watch?v=2a2P8-PyNGA&list=PLswdBLT9llbheHhZdGNw9RehJP1kvpMHY&index=21&t=27m
+	float mn=.02;
+	if(uv.x<mn){
+		u=0.;
+	}else if(uv.x>1.-mn){
+		u=0.;
+	}else{
+		u=aastep(width,uv.x)-aastep(1.-width,uv.x);
+	}
 	return u;
 }
 
