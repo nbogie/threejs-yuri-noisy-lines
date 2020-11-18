@@ -71,9 +71,15 @@ const sketch = ({ context }) => {
 
 
 
-    const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 1);
-    const plane2 = new THREE.Mesh(boxGeometry, material);
-    scene.add(plane2);
+
+
+    const boxGeometry = new THREE.BoxBufferGeometry(1, 1, 1).translate(0, 0, -0.5);
+    // About this translation: we move the box so that the z (of the uvs(?)) of the box front surface is 
+    // the same as that of the plane, for noise texture to match (driven by vPosition).
+    //https://www.youtube.com/watch?v=2a2P8-PyNGA&list=PLswdBLT9llbheHhZdGNw9RehJP1kvpMHY&index=21&t=31m
+    const box = new THREE.Mesh(boxGeometry, material);
+    box.position.z = 0.5;// shift it back into position.
+    scene.add(box);
 
     return { plane, material };
   }
