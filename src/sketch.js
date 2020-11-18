@@ -29,10 +29,13 @@ const sketch = ({ context }) => {
   const options = {
     time: 0,
     rotation: 0,
-    repeat: 15,
-    lineWidth: 0.1
+    repeat: 8,
+    lineWidth: 0.4
   };
 
+
+  const mouse = new THREE.Vector2(0, 0);
+  const mouseTarget = new THREE.Vector2(0, 0);
 
   const gui = new dat.GUI();
   gui.add(options, "time", 0, 100, 0.1);
@@ -40,6 +43,12 @@ const sketch = ({ context }) => {
   gui.add(options, "repeat", 0, 100, 0.1);
   gui.add(options, "lineWidth", 0, 1, 0.01);
 
+  function mouseEvents() {
+    document.addEventListener("mousemove", e => {
+      mouse.x = e.pageX / window.innerWidth - 0.5;
+      mouse.y = e.pageY / window.innerHeight - 0.5;
+    });
+  }
   function addObjects() {
     const material = new THREE.ShaderMaterial({
       extensions: {
@@ -81,7 +90,7 @@ const sketch = ({ context }) => {
     box.position.z = 0.15;// shift it back into position.
     scene.add(box);
 
-    return { plane, material };
+    return { plane, box, material };
   }
   // WebGL background color
   renderer.setClearColor("#000", 1);
@@ -109,9 +118,9 @@ const sketch = ({ context }) => {
   const scene = new THREE.Scene();
 
 
-  const { material } = addObjects();
+  const { box, material } = addObjects();
 
-
+  mouseEvents();
 
 
   // draw each frame
@@ -125,6 +134,12 @@ const sketch = ({ context }) => {
     },
     // Update & render your scene here
     render({ time }) {
+
+      box.rotation.x = mouseTarget.y;
+      box.rotation.y = mouseTarget.x;
+
+      mouseTarget.lerp(mouse, 0.07)
+
       controls.update();
       material.uniforms.time.value = time;
       material.uniforms.rotation.value = options.rotation;
